@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "static-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/static-server.js"],
+      "port": 8934
+    },
+    {
+      "name": "astro-site",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "site", "run", "dev", "--", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}

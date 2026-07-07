@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workhouse — Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+  /* Brand tokens (from workhouse.agency design system).
+     Denton Bold -> Fraunces (stand-in) · Gotham Book -> Montserrat (stand-in) */
+  :root{
+    --primary:#132F32;        /* dark teal */
+    --neutral:#F7EFE2;        /* cream page bg */
+    --soft-blue:#A1B2D8;
+    --soft-purple:#D5BFD6;
+    --soft-yellow:#EDC58A;
+    --muted-orange:#E29B7E;
+    --white:#fff; --line:#d9cfbf;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Montserrat', system-ui, sans-serif;
+    --font-mono:'Roboto Mono', monospace;
+    --radius-pill:60px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-body);color:var(--primary);background:var(--neutral);line-height:1.55;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:900;line-height:1.05;margin:0 0 .35em;}
+  h1{font-size:clamp(34px,6vw,64px);letter-spacing:-.5px;}
+  h2{font-size:clamp(24px,3.5vw,36px);}
+  h3{font-size:20px;font-weight:600;}
+  p{margin:0 0 1em;}
+  a{color:inherit;text-decoration:none;cursor:pointer;}
+  .lead{font-size:clamp(17px,2vw,21px);max-width:640px;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted-orange);margin-bottom:10px;display:block;}
+  .muted{color:#5b6a6c;}
+  .container{max-width:1120px;margin:0 auto;padding:0 28px;}
+
+  /* Buttons */
+  .btn{display:inline-block;border:1.5px solid var(--primary);border-radius:var(--radius-pill);padding:11px 26px;font-size:14px;font-weight:600;background:transparent;color:var(--primary);margin:4px 8px 4px 0;}
+  .btn.primary{background:var(--primary);color:var(--neutral);}
+  .btn.light{border-color:var(--neutral);color:var(--neutral);}
+  .btn.light.primary{background:var(--neutral);color:var(--primary);}
+
+  /* Header */
+  header.site{position:sticky;top:0;z-index:30;background:var(--neutral);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:14px 28px;}
+  .logo{font-family:var(--font-display);font-weight:900;font-size:22px;letter-spacing:.5px;}
+  nav.site a{margin-left:22px;font-size:14px;font-weight:500;}
+  nav.site a.active{color:var(--muted-orange);}
+  @media(max-width:760px){nav.site a{margin-left:12px;font-size:12px;}}
+
+  .screen{display:none;padding:44px 0 20px;}
+  .screen.active{display:block;}
+  .crumb{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8a8069;margin-bottom:22px;}
+  .crumb a{color:#8a8069;}
+
+  /* Wireframe helpers — kept low-fi even though brand-styled */
+  .ph{background:repeating-linear-gradient(45deg,#eae0d0,#eae0d0 12px,#e3d8c6 12px,#e3d8c6 24px);border:1px dashed #c3b79f;color:#9a8f78;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--font-mono);font-size:12px;min-height:150px;border-radius:8px;}
+  .note{font-family:var(--font-mono);font-size:11.5px;color:#8a6d2e;background:#fbf3df;border-left:3px solid var(--soft-yellow);padding:8px 12px;margin:0 0 26px;border-radius:0 6px 6px 0;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px;}
+  .grid{display:grid;gap:20px;}
+  .c3{grid-template-columns:repeat(3,1fr);}
+  .c2{grid-template-columns:repeat(2,1fr);}
+  .c4{grid-template-columns:repeat(4,1fr);}
+  @media(max-width:820px){.c3,.c2,.c4{grid-template-columns:1fr;}}
+  .tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:var(--neutral);border:1px solid var(--line);border-radius:40px;padding:3px 11px;margin:0 4px 4px 0;color:#5b6a6c;}
+  .chip{display:inline-block;border:1.5px solid var(--primary);border-radius:40px;padding:6px 16px;font-size:13px;font-weight:500;margin:0 6px 8px 0;}
+  hr.soft{border:none;border-top:1px solid var(--line);margin:40px 0;}
+  ul.svc{list-style:none;padding:0;margin:14px 0 0;}
+  ul.svc li{font-family:var(--font-mono);font-size:13px;padding:7px 0;border-bottom:1px solid var(--line);}
+  ul.svc li:before{content:'›';color:var(--muted-orange);margin-right:8px;}
+
+  .band{background:var(--primary);color:var(--neutral);border-radius:16px;padding:44px 34px;}
+  .band .muted{color:#b9c4c4;}
+  .band .eyebrow{color:var(--soft-yellow);}
+
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8a8069;margin-bottom:5px;}
+  .field .inp{background:var(--white);border:1px solid var(--line);border-radius:8px;height:42px;}
+  .field .inp.area{height:96px;}
+
+  footer.site{background:var(--primary);color:var(--neutral);margin-top:56px;padding:44px 28px;}
+  .fcols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;max-width:1120px;margin:0 auto;}
+  footer.site a{color:#cdd6d6;font-size:14px;display:block;padding:3px 0;}
+  footer .muted{color:#8fa0a0;}
+  @media(max-width:820px){.fcols{grid-template-columns:1fr 1fr;}}
+
+  /* Sitemap node map */
+  .map-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:14px 0;}
+  .node{border:1.5px solid var(--primary);background:var(--white);border-radius:40px;padding:9px 18px;font-size:13px;font-weight:500;}
+  .node.l1{background:var(--primary);color:var(--neutral);font-weight:600;}
+  .connector{text-align:center;color:var(--line);font-size:22px;line-height:1;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="logo" onclick="go('home')">Workhouse</div>
+  <nav class="site" id="nav">
+    <a onclick="go('whatwedo')" data-s="whatwedo">What We Do</a>
+    <a onclick="go('work')" data-s="work">Work</a>
+    <a onclick="go('sectors')" data-s="sectors">Sectors</a>
+    <a onclick="go('latest')" data-s="latest">Latest</a>
+    <a onclick="go('about')" data-s="about">About</a>
+    <a onclick="go('contact')" data-s="contact">Contact</a>
+    <a onclick="go('map')" data-s="map" style="color:var(--muted-orange)">⊞ Sitemap</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ===================== HOME ===================== -->
+<section class="screen active" id="home">
+  <div class="note">SCREEN · Homepage. Hook → what we do (3 disciplines) → featured work → who we're for → CTA. Real copy from the wireframe file.</div>
+
+  <span class="eyebrow">Creative agency · Built Environment specialists</span>
+  <h1>Ideas that ignite</h1>
+  <p class="lead">We craft strategies that cut through, brands that stick, and digital experiences that deliver. With curiosity at our core, we blend clarity and craft with confidence to turn ideas into measurable impact.</p>
+  <div style="margin:20px 0 8px">
+    <a class="btn primary" onclick="go('work')">See our work</a>
+    <a class="btn" onclick="go('contact')">Got a challenge?</a>
+  </div>
+  <div class="ph" style="min-height:300px;margin:26px 0">[ Hero showreel / signature imagery ]</div>
+
+  <!-- Featured work strip -->
+  <span class="eyebrow">What you get</span>
+  <div class="grid c4" style="margin-bottom:44px">
+    <div class="card"><h3>Killer strategies that cut through</h3></div>
+    <div class="card"><h3>Brands that stick</h3></div>
+    <div class="card"><h3>Creative impossible to ignore</h3></div>
+    <div class="card"><h3>Digital that delivers</h3></div>
+  </div>
+
+  <!-- What we do -->
+  <span class="eyebrow">What we do</span>
+  <h2>Strategy. Creative. Digital.</h2>
+  <p class="lead muted">Three disciplines. One obsession: work that provokes a response. We own our clients' challenges like they're ours — because they are.</p>
+  <div class="grid c3" style="margin:22px 0">
+    <div class="card"><span class="tag">01</span><h3>Strategy</h3><p class="muted">Rock-solid thinking built on proof — the truths your audience actually care about.</p><a class="muted" onclick="go('strategy')" style="color:var(--muted-orange)">Explore Strategy ›</a></div>
+    <div class="card"><span class="tag">02</span><h3>Creative</h3><p class="muted">Distinctive, bold and human. Ideas that make people stop, think, click, share and buy.</p><a onclick="go('creative')" style="color:var(--muted-orange)">Explore Creative ›</a></div>
+    <div class="card"><span class="tag">03</span><h3>Digital</h3><p class="muted">Every click, every pixel with a point. Data-led, hell-bent on moving minds and metrics.</p><a onclick="go('digital')" style="color:var(--muted-orange)">Explore Digital ›</a></div>
+  </div>
+
+  <!-- Featured case studies -->
+  <span class="eyebrow">Selected work</span>
+  <div class="grid c3" style="margin:14px 0 44px">
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case image ]</div><div style="padding:20px"><span class="tag">Sector</span><h3 style="margin-top:8px">To boldly go where no underlay brand has gone before</h3><a onclick="go('case')" style="color:var(--muted-orange)">View case study ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case image ]</div><div style="padding:20px"><span class="tag">Sector</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View case study ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case image ]</div><div style="padding:20px"><span class="tag">Sector</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View case study ›</a></div></div>
+  </div>
+
+  <div class="ph">[ Client logo strip — 6–8 built-environment brands ]</div>
+
+  <hr class="soft">
+  <div class="band" style="text-align:center">
+    <span class="eyebrow">For the brave ones</span>
+    <h2>Got a challenge?</h2>
+    <p class="muted" style="max-width:560px;margin:0 auto 18px">Tell us where you're headed and we'll tell you how we'd get you there.</p>
+    <a class="btn light primary" onclick="go('contact')">Get in touch</a>
+  </div>
+</section>
+
+<!-- ===================== WHAT WE DO (hub) ===================== -->
+<section class="screen" id="whatwedo">
+  <div class="crumb"><a onclick="go('home')">Home</a> / What We Do</div>
+  <div class="note">SCREEN · Services hub (parent of Strategy / Creative / Digital).</div>
+  <span class="eyebrow">What we do & how we do it</span>
+  <h1>Technical worlds, remarkable stories</h1>
+  <p class="lead">Three disciplines working together, built around one way of thinking. They point to our one non-negotiable aim: to create work that gets results.</p>
+
+  <div class="grid c3" style="margin-top:34px">
+    <div class="card">
+      <h2 style="font-size:26px">Strategy</h2>
+      <p class="muted">We start with the truth to uncover what really matters. No hunches, no hearsay. Rock-solid thinking built on proof.</p>
+      <ul class="svc"><li>Audience research</li><li>Brand strategy</li><li>Comms planning</li></ul>
+      <a class="btn" style="margin-top:16px" onclick="go('strategy')">More ›</a>
+    </div>
+    <div class="card">
+      <h2 style="font-size:26px">Creative</h2>
+      <p class="muted">We turn sound strategy into ideas that provoke action. Distinctive, bold and human.</p>
+      <ul class="svc"><li>Brand design</li><li>Art direction</li><li>Advertising</li><li>Production</li></ul>
+      <a class="btn" style="margin-top:16px" onclick="go('creative')">More ›</a>
+    </div>
+    <div class="card">
+      <h2 style="font-size:26px">Digital</h2>
+      <p class="muted">Every post with a point. Measured risks, meaningful returns. Data-led and crafted with care.</p>
+      <ul class="svc"><li>Web</li><li>Paid</li><li>CRM</li><li>Social</li><li>Digital experiences</li></ul>
+      <a class="btn" style="margin-top:16px" onclick="go('digital')">More ›</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STRATEGY ===================== -->
+<section class="screen" id="strategy">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('whatwedo')">What We Do</a> / Strategy</div>
+  <div class="note">SCREEN · Service detail (template reused for Creative & Digital): hero → the offer → deliverables → proof → CTA.</div>
+  <span class="eyebrow">Strategy</span>
+  <h1>Solid-state strategy</h1>
+  <p class="lead">We cut through the noise. Uncover the truths that matter — the ones your audience actually care about. No hunches. Just solid thinking built on proof.</p>
+  <div class="ph" style="min-height:240px;margin:26px 0">[ Supporting visual ]</div>
+
+  <h2>The thinking behind the work</h2>
+  <p class="lead muted">Every campaign starts with a strategic platform: a single, provable idea that every asset is built around. We find it, frame it, then bring it to life with action-provoking creative.</p>
+
+  <span class="eyebrow" style="margin-top:30px">What's involved</span>
+  <div class="grid c3">
+    <div class="card"><h3>Audience research</h3><p class="muted">The truths your audience actually care about.</p></div>
+    <div class="card"><h3>Brand strategy</h3><p class="muted">A single, provable idea to build around.</p></div>
+    <div class="card"><h3>Comms planning</h3><p class="muted">The right message, channel and moment.</p></div>
+  </div>
+  <hr class="soft">
+  <div class="ph">[ Related case study for this discipline ]</div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Start with the truth</h2><a class="btn light primary" onclick="go('contact')">Book a discovery call</a></div>
+</section>
+
+<!-- ===================== CREATIVE ===================== -->
+<section class="screen" id="creative">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('whatwedo')">What We Do</a> / Creative</div>
+  <div class="note">SCREEN · Service detail (same template as Strategy).</div>
+  <span class="eyebrow">Creative</span>
+  <h1>Creative impossible to ignore</h1>
+  <p class="lead">We turn that sound strategy into ideas that provoke action. Distinctive, bold and human — the kind of creative that makes people stop, think, click, share and buy.</p>
+  <div class="ph" style="min-height:240px;margin:26px 0">[ Supporting visual ]</div>
+  <span class="eyebrow">What's involved</span>
+  <div class="grid c4">
+    <div class="card"><h3>Brand design</h3></div>
+    <div class="card"><h3>Art direction</h3></div>
+    <div class="card"><h3>Advertising</h3></div>
+    <div class="card"><h3>Production</h3></div>
+  </div>
+  <hr class="soft">
+  <div class="ph">[ Related case study ]</div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Colour outside the lines</h2><a class="btn light primary" onclick="go('contact')">Start a project</a></div>
+</section>
+
+<!-- ===================== DIGITAL ===================== -->
+<section class="screen" id="digital">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('whatwedo')">What We Do</a> / Digital</div>
+  <div class="note">SCREEN · Service detail (same template as Strategy).</div>
+  <span class="eyebrow">Digital</span>
+  <h1>Standout digital</h1>
+  <p class="lead">Every click, every pixel, every post with a point. Measured risks, meaningful returns. Always crafted with care; data-led and hell-bent on moving minds and metrics.</p>
+  <div class="ph" style="min-height:240px;margin:26px 0">[ Supporting visual ]</div>
+  <span class="eyebrow">What's involved</span>
+  <div class="grid c4">
+    <div class="card"><h3>Web</h3></div>
+    <div class="card"><h3>Paid</h3></div>
+    <div class="card"><h3>CRM</h3></div>
+    <div class="card"><h3>Social & Digital experiences</h3></div>
+  </div>
+  <hr class="soft">
+  <div class="ph">[ Related case study ]</div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Move minds and metrics</h2><a class="btn light primary" onclick="go('contact')">Get a quote</a></div>
+</section>
+
+<!-- ===================== WORK ===================== -->
+<section class="screen" id="work">
+  <div class="crumb"><a onclick="go('home')">Home</a> / Work</div>
+  <div class="note">SCREEN · Work index (dynamic). Case Studies + Shots, filterable by sector/discipline.</div>
+  <span class="eyebrow">Our work</span>
+  <h1>Proof, not promises</h1>
+  <p class="lead">Bold work with measurable results for the built environment.</p>
+
+  <div style="margin:22px 0 6px">
+    <span class="tag">Discipline</span>
+    <span class="chip">All</span><span class="chip">Strategy</span><span class="chip">Creative</span><span class="chip">Digital</span>
+  </div>
+  <div style="margin:0 0 10px">
+    <span class="tag">Sector</span>
+    <span class="chip" onclick="go('sector-property')">Property & Developers</span><span class="chip" onclick="go('sector-construction')">Construction & Contractors</span><span class="chip" onclick="go('sector-architecture')">Architecture, Products & Consultancy</span>
+  </div>
+
+  <h2 style="margin-top:24px;font-size:24px">Case studies</h2>
+  <div class="grid c3">
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Thumb ]</div><div style="padding:20px"><span class="tag">Sector</span> <span class="tag">Creative</span><h3 style="margin-top:8px">To boldly go where no underlay brand has gone before</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Thumb ]</div><div style="padding:20px"><span class="tag">Sector</span> <span class="tag">Digital</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Thumb ]</div><div style="padding:20px"><span class="tag">Sector</span> <span class="tag">Strategy</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+  </div>
+
+  <h2 style="margin-top:40px;font-size:24px">Shots <span class="muted" style="font-family:var(--font-body);font-weight:400;font-size:14px">— slim / in-progress work</span></h2>
+  <div class="grid c4">
+    <div class="ph">[ Shot ]</div><div class="ph">[ Shot ]</div><div class="ph">[ Shot ]</div><div class="ph">[ Shot ]</div>
+  </div>
+</section>
+
+<!-- ===================== CASE STUDY ===================== -->
+<section class="screen" id="case">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('work')">Work</a> / Case study</div>
+  <div class="note">SCREEN · Case study detail. Catch line → client block → challenge/approach → results → related work.</div>
+  <span class="eyebrow">Case study · Sector</span>
+  <h1>To boldly go where no underlay brand has gone before</h1>
+  <div class="ph" style="min-height:320px;margin:22px 0">[ Hero image ]</div>
+
+  <div class="grid c2">
+    <div>
+      <h2>The challenge</h2>
+      <p class="lead muted">One paragraph on the business problem the client came to us with.</p>
+      <h2 style="margin-top:26px">What we did</h2>
+      <p class="lead muted">The strategy, creative and digital work delivered, in plain language.</p>
+    </div>
+    <div class="card" style="align-self:start">
+      <span class="eyebrow">Client block</span>
+      <p><strong>[ Client name ]</strong><br><span class="muted">Sector</span></p>
+      <span class="eyebrow" style="margin-top:14px">Services used</span>
+      <p class="muted" style="font-size:13px">Data Interrogation · Development · Digital Strategy · UX · UI · User Testing · eCRM</p>
+    </div>
+  </div>
+
+  <hr class="soft">
+  <span class="eyebrow">The results</span>
+  <div class="grid c4">
+    <div class="card"><h2 style="font-size:34px">+X%</h2><p class="muted">Uplift in [metric]</p></div>
+    <div class="card"><h2 style="font-size:34px">+X%</h2><p class="muted">Uplift in open rates</p></div>
+    <div class="card"><h2 style="font-size:34px">–X%</h2><p class="muted">Cost per acquisition</p></div>
+    <div class="card"><h2 style="font-size:34px">+Xk</h2><p class="muted">Email profiles</p></div>
+  </div>
+
+  <div class="grid c2" style="margin-top:24px"><div class="ph">[ Image ]</div><div class="ph">[ Image ]</div></div>
+  <div class="card" style="margin-top:24px"><h2 style="font-size:26px">“A pull quote from the client goes here.”</h2><p class="muted">— Name, Job title, Company</p></div>
+
+  <hr class="soft">
+  <span class="eyebrow">Related work</span>
+  <div class="grid c3"><div class="ph">[ Case ]</div><div class="ph">[ Case ]</div><div class="ph">[ Case ]</div></div>
+</section>
+
+<!-- ===================== SECTORS (hub) ===================== -->
+<section class="screen" id="sectors">
+  <div class="crumb"><a onclick="go('home')">Home</a> / Sectors</div>
+  <div class="note">SCREEN · Sectors hub (parent of the three sector pages). Same one-obsession message, told through the lens of who we work with.</div>
+  <span class="eyebrow">Sectors</span>
+  <h1>We know your world</h1>
+  <p class="lead">30 years deep in the built environment. We speak your language, know your buyers and understand what actually moves a specifier, an investor or a planner. Pick your patch.</p>
+
+  <div class="grid c3" style="margin-top:34px">
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="ph" style="border:none;border-radius:0">[ Sector image ]</div>
+      <div style="padding:22px">
+        <h2 style="font-size:24px">Property & Developers</h2>
+        <p class="muted">Developers, investors, housebuilders and BTR operators who need schemes and brands that stand out.</p>
+        <a onclick="go('sector-property')" style="color:var(--muted-orange)">Explore ›</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="ph" style="border:none;border-radius:0">[ Sector image ]</div>
+      <div style="padding:22px">
+        <h2 style="font-size:24px">Construction & Contractors</h2>
+        <p class="muted">Contractors and construction firms who win on reputation, talent and trust.</p>
+        <a onclick="go('sector-construction')" style="color:var(--muted-orange)">Explore ›</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="ph" style="border:none;border-radius:0">[ Sector image ]</div>
+      <div style="padding:22px">
+        <h2 style="font-size:24px">Architecture, Products & Consultancy</h2>
+        <p class="muted">Architects, manufacturers and consultants whose expertise deserves to be seen.</p>
+        <a onclick="go('sector-architecture')" style="color:var(--muted-orange)">Explore ›</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="soft">
+  <div class="band" style="text-align:center">
+    <span class="eyebrow">Not on the list?</span>
+    <h2>If you build, shape or sell the built environment, we should talk.</h2>
+    <a class="btn light primary" onclick="go('contact')">Get in touch</a>
+  </div>
+</section>
+
+<!-- ===================== SECTOR · PROPERTY ===================== -->
+<section class="screen" id="sector-property">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('sectors')">Sectors</a> / Property & Developers</div>
+  <div class="note">SCREEN · Sector landing (template reused for all three): hero → the challenge → how we help → sector work → CTA. Copy is draft in the Workhouse voice.</div>
+  <span class="eyebrow">Sector · Property & Developers</span>
+  <h1>Property brands people remember</h1>
+  <p class="lead">From first spade to final sale, we help developers, investors and housebuilders stand out in a sector where everything is starting to look the same.</p>
+  <div class="ph" style="min-height:280px;margin:26px 0">[ Sector hero image ]</div>
+
+  <div class="band" style="margin-bottom:34px">
+    <span class="eyebrow">The challenge</span>
+    <h2>Every scheme is starting to look identical</h2>
+    <p class="lead muted">Same stock imagery. Same safe promises. Buyers, investors and planners can't tell one scheme from the next. We make yours impossible to confuse with the one down the road — and give it a story worth buying into.</p>
+  </div>
+
+  <span class="eyebrow">How we help</span>
+  <div class="grid c3">
+    <div class="card"><h3>Strategy</h3><p class="muted">Positioning for schemes, portfolios and the corporate brand behind them.</p></div>
+    <div class="card"><h3>Creative</h3><p class="muted">Scheme identities, sales & marketing suites, launch campaigns.</p></div>
+    <div class="card"><h3>Digital</h3><p class="muted">Development microsites, investor decks, lead-gen and CRM.</p></div>
+  </div>
+
+  <hr class="soft">
+  <span class="eyebrow">Work in this sector</span>
+  <div class="grid c3">
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Property</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Property</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Property</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Selling a scheme or a story?</h2><a class="btn light primary" onclick="go('contact')">Got a challenge?</a></div>
+</section>
+
+<!-- ===================== SECTOR · CONSTRUCTION ===================== -->
+<section class="screen" id="sector-construction">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('sectors')">Sectors</a> / Construction & Contractors</div>
+  <div class="note">SCREEN · Sector landing (same template as Property).</div>
+  <span class="eyebrow">Sector · Construction & Contractors</span>
+  <h1>Build a brand as solid as your work</h1>
+  <p class="lead">Winning work, winning talent, winning trust — for contractors and construction firms who do brilliant work but sound like everyone else.</p>
+  <div class="ph" style="min-height:280px;margin:26px 0">[ Sector hero image ]</div>
+
+  <div class="band" style="margin-bottom:34px">
+    <span class="eyebrow">The challenge</span>
+    <h2>Your reputation wins bids — if people can see it</h2>
+    <p class="lead muted">In construction, reputation wins tenders and attracts the best people. But brilliant delivery hidden behind a bland brand pre-sells nothing. We turn your track record into a brand that does the talking before the pitch even starts.</p>
+  </div>
+
+  <span class="eyebrow">How we help</span>
+  <div class="grid c3">
+    <div class="card"><h3>Strategy</h3><p class="muted">Positioning, bid & tender narrative, employer brand.</p></div>
+    <div class="card"><h3>Creative</h3><p class="muted">Brand identity, capability & PQQ collateral, recruitment campaigns.</p></div>
+    <div class="card"><h3>Digital</h3><p class="muted">Website, project showcases, social proof and talent attraction.</p></div>
+  </div>
+
+  <hr class="soft">
+  <span class="eyebrow">Work in this sector</span>
+  <div class="grid c3">
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Construction</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Construction</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Construction</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Chasing a bid or better talent?</h2><a class="btn light primary" onclick="go('contact')">Got a challenge?</a></div>
+</section>
+
+<!-- ===================== SECTOR · ARCHITECTURE ===================== -->
+<section class="screen" id="sector-architecture">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('sectors')">Sectors</a> / Architecture, Products & Consultancy</div>
+  <div class="note">SCREEN · Sector landing (same template as Property).</div>
+  <span class="eyebrow">Sector · Architecture, Products & Consultancy</span>
+  <h1>Expertise that sells itself</h1>
+  <p class="lead">For architects, manufacturers and consultants whose expertise is world-class — but whose marketing keeps it a secret.</p>
+  <div class="ph" style="min-height:280px;margin:26px 0">[ Sector hero image ]</div>
+
+  <div class="band" style="margin-bottom:34px">
+    <span class="eyebrow">The challenge</span>
+    <h2>Technical brilliance rarely sells itself</h2>
+    <p class="lead muted">Specifiers, clients and buyers are drowning in spec sheets and jargon. We translate deep, specialist knowledge into stories people actually act on — so your expertise becomes the reason they choose you.</p>
+  </div>
+
+  <span class="eyebrow">How we help</span>
+  <div class="grid c3">
+    <div class="card"><h3>Strategy</h3><p class="muted">Proposition, specifier messaging, thought-leadership platforms.</p></div>
+    <div class="card"><h3>Creative</h3><p class="muted">Brand & product identity, CPD & sales collateral, campaigns.</p></div>
+    <div class="card"><h3>Digital</h3><p class="muted">Specifier journeys, product configurators, content & SEO.</p></div>
+  </div>
+
+  <hr class="soft">
+  <span class="eyebrow">Work in this sector</span>
+  <div class="grid c3">
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Architecture</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Products</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+    <div class="card" style="padding:0;overflow:hidden"><div class="ph" style="border:none;border-radius:0">[ Case ]</div><div style="padding:18px"><span class="tag">Consultancy</span><h3 style="margin-top:8px">[ Case study title ]</h3><a onclick="go('case')" style="color:var(--muted-orange)">View ›</a></div></div>
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Got expertise worth shouting about?</h2><a class="btn light primary" onclick="go('contact')">Got a challenge?</a></div>
+</section>
+
+<!-- ===================== THE LATEST ===================== -->
+<section class="screen" id="latest">
+  <div class="crumb"><a onclick="go('home')">Home</a> / The Latest</div>
+  <div class="note">SCREEN · Content hub — all 24 live posts, rendered from the real copy. Filter by pillar; click any card to read the full article with image placeholders.</div>
+  <span class="eyebrow">The latest</span>
+  <h1>Perspectives, worth your time</h1>
+  <p class="lead">Thought leadership, interviews, news and how-to guides from the Workhouse team.</p>
+
+  <div id="latestFilters" style="margin:22px 0 6px"></div>
+  <div id="latestFeatured"></div>
+  <div id="latestGrid" class="grid c3"></div>
+
+  <hr class="soft">
+  <div class="card" style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px">
+    <div><span class="eyebrow">Gated content</span><h3>Perspectives Vol. 1 & 2</h3><p class="muted">Download our thinking — email required.</p></div>
+    <a class="btn primary" onclick="go('contact')">Download</a>
+  </div>
+</section>
+
+<!-- ===================== ARTICLE ===================== -->
+<section class="screen" id="article">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('latest')">The Latest</a> / <span id="artCrumb">Article</span></div>
+  <div class="note">SCREEN · Article / post detail (one template drives all 24 posts). Real copy in; image placeholders marked.</div>
+  <div id="articleBody"></div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="screen" id="about">
+  <div class="crumb"><a onclick="go('home')">Home</a> / About</div>
+  <div class="note">SCREEN · About / Who We Are. Positioning → who we're for → people → agency life → B Corp → careers signpost.</div>
+  <span class="eyebrow">Who we are</span>
+  <h1>For the brave ones</h1>
+  <p class="lead">We're the creative agency shaking up the Built Environment with bold ideas that provoke action, prove results and build brands worth remembering.</p>
+
+  <div class="band" style="margin:34px 0">
+    <span class="eyebrow">Who we're for</span>
+    <h2>Finished with blending in?</h2>
+    <p class="lead muted">We work with marketing leaders who see the sameness in their sector and want out. They believe bold creativity makes a difference — they're right. We're for the challengers with something to prove. The provocateurs pressured for proof. The ones who want their brand to mean something.</p>
+  </div>
+
+  <span class="eyebrow">How we think</span>
+  <div class="grid c3">
+    <div class="card"><h3>Truth first</h3><p class="muted">No hunches, no hearsay. Proof.</p></div>
+    <div class="card"><h3>Provoke a response</h3><p class="muted">Work that makes people act.</p></div>
+    <div class="card"><h3>Own the challenge</h3><p class="muted">Your problem is ours.</p></div>
+  </div>
+
+  <h2 style="margin-top:44px">Our people</h2>
+  <div class="grid c4">
+    <div class="card"><div class="ph" style="min-height:160px">[ Photo ]</div><h3 style="margin-top:10px">Name</h3><p class="muted">Role</p></div>
+    <div class="card"><div class="ph" style="min-height:160px">[ Photo ]</div><h3 style="margin-top:10px">Name</h3><p class="muted">Role</p></div>
+    <div class="card"><div class="ph" style="min-height:160px">[ Photo ]</div><h3 style="margin-top:10px">Name</h3><p class="muted">Role</p></div>
+    <div class="card"><div class="ph" style="min-height:160px">[ Photo ]</div><h3 style="margin-top:10px">Name</h3><p class="muted">Role</p></div>
+  </div>
+
+  <hr class="soft">
+  <div class="grid c2">
+    <div class="card"><span class="eyebrow">The agency</span><h3>Agency life</h3><p class="muted">A peek behind the curtain — culture, values and the way we work.</p></div>
+    <div class="card"><span class="eyebrow">Certified</span><h3>We're a B Corp</h3><p class="muted">Business as a force for good. <a onclick="go('bcorp')" style="color:var(--muted-orange)">Our score & why it matters ›</a></p></div>
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Join the team</h2><a class="btn light primary" onclick="go('careers')">View job vacancies</a></div>
+</section>
+
+<!-- ===================== B CORP ===================== -->
+<section class="screen" id="bcorp">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('about')">About</a> / B Corp</div>
+  <div class="note">SCREEN · B Corp. Explainer → score & highlights → why it matters.</div>
+  <span class="eyebrow">Certified B Corporation</span>
+  <h1>Business as a force for good</h1>
+  <div class="grid c3" style="margin-top:30px">
+    <div class="card"><h3>What is B Corp?</h3><p class="muted">A short, plain explainer of the certification and what it demands.</p></div>
+    <div class="card"><h3>Our score & key highlights</h3><p class="muted">Headline score plus the impact areas we perform strongest in.</p></div>
+    <div class="card"><h3>Why it matters</h3><p class="muted">What being a B Corp means for clients, our people and the planet.</p></div>
+  </div>
+</section>
+
+<!-- ===================== CAREERS ===================== -->
+<section class="screen" id="careers">
+  <div class="crumb"><a onclick="go('home')">Home</a> / <a onclick="go('about')">About</a> / Careers</div>
+  <div class="note">SCREEN · Careers. Culture pitch → open roles → apply.</div>
+  <span class="eyebrow">Careers</span>
+  <h1>Join the team</h1>
+  <p class="lead">We're always after brave, curious people who want their work to mean something.</p>
+  <div class="ph" style="min-height:220px;margin:24px 0">[ Team / culture imagery ]</div>
+
+  <h2>Available roles</h2>
+  <div class="card" style="display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px">
+    <div><h3>Campaign Manager</h3><span class="tag">Full time</span> <span class="tag">Blackburn</span></div>
+    <span class="muted">Marketing</span>
+    <a class="btn primary" onclick="go('contact')">Learn more</a>
+  </div>
+  <p class="muted" style="margin-top:16px">No suitable role? <a onclick="go('contact')" style="color:var(--muted-orange)">Get in touch anyway ›</a></p>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="screen" id="contact">
+  <div class="crumb"><a onclick="go('home')">Home</a> / Contact</div>
+  <div class="note">SCREEN · Contact. Three routes (new business / careers / everything else) + short form. Best practice: low friction, clear next step.</div>
+  <span class="eyebrow">Contact</span>
+  <h1>Got a challenge?</h1>
+  <p class="lead">Tell us a bit about it. We'll come back to you within one working day.</p>
+
+  <div class="grid c2" style="margin-top:28px">
+    <div class="card">
+      <h3>Start a project</h3>
+      <div class="field"><label>Business name</label><div class="inp"></div></div>
+      <div class="field"><label>Business email</label><div class="inp"></div></div>
+      <div class="field"><label>What do you need? (Strategy / Creative / Digital)</label><div class="inp"></div></div>
+      <div class="field"><label>Your challenge</label><div class="inp area"></div></div>
+      <a class="btn primary">Send enquiry</a>
+      <div class="note" style="margin:16px 0 0">On submit → confirmation: “Thanks — we'll be in touch within 1 working day.”</div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:20px"><span class="eyebrow">New business</span><h3>Nicky Jepson</h3><p class="muted">Marketing Director<br>01254 878 956<br>hello@workhouse.agency</p></div>
+      <div class="card" style="margin-bottom:20px"><span class="eyebrow">Careers</span><p class="muted"><a onclick="go('careers')" style="color:var(--muted-orange)">View our job vacancies ›</a><br>01254 878 956 · hello@workhouse.agency</p></div>
+      <div class="card"><span class="eyebrow">Everything else</span><p class="muted">01254 878 956 · hello@workhouse.agency<br>Blackburn Rd, Little Town, Blackburn</p><div class="ph" style="min-height:150px;margin-top:12px">[ Map ]</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SITEMAP MAP ===================== -->
+<section class="screen" id="map">
+  <div class="note">REFERENCE · Sitemap structure (for the walkthrough). Click any node to jump to that wireframe screen.</div>
+  <span class="eyebrow">Structure</span>
+  <h1>Sitemap</h1>
+  <div class="map-row"><div class="node l1" onclick="go('home')">Homepage</div></div>
+  <div class="connector">│</div>
+  <div class="map-row">
+    <div class="node l1" onclick="go('whatwedo')">What We Do</div>
+    <div class="node l1" onclick="go('work')">Work</div>
+    <div class="node l1" onclick="go('sectors')">Sectors</div>
+    <div class="node l1" onclick="go('latest')">The Latest</div>
+    <div class="node l1" onclick="go('about')">About</div>
+    <div class="node l1" onclick="go('contact')">Contact</div>
+  </div>
+  <div class="connector">┈┈┈┈┈┈┈┈</div>
+  <div class="map-row">
+    <div class="node" onclick="go('strategy')">Strategy</div>
+    <div class="node" onclick="go('creative')">Creative</div>
+    <div class="node" onclick="go('digital')">Digital</div>
+    <div class="node" onclick="go('sector-property')">Property & Developers</div>
+    <div class="node" onclick="go('sector-construction')">Construction & Contractors</div>
+    <div class="node" onclick="go('sector-architecture')">Architecture, Products & Consultancy</div>
+  </div>
+  <div class="map-row">
+    <div class="node" onclick="go('case')">Case Study</div>
+    <div class="node" onclick="go('article')">Post / Article</div>
+    <div class="node" onclick="go('careers')">Careers</div>
+    <div class="node" onclick="go('bcorp')">B Corp</div>
+  </div>
+  <p class="muted" style="text-align:center;margin-top:26px;font-family:var(--font-mono);font-size:12px">
+    Work = Case Studies + Shots, filtered by Sector · Latest = Perspectives · 5-in-5 · News · How-To (+ gated downloads) · Utility: Privacy · Cookies · Legal
+  </p>
+</section>
+
+</div>
+
+<footer class="site">
+  <div class="fcols">
+    <div>
+      <div class="logo" style="color:var(--neutral)">Workhouse</div>
+      <p class="muted" style="max-width:280px;margin-top:10px">Action-provoking creative for the built environment.</p>
+    </div>
+    <div><span class="eyebrow" style="color:var(--soft-yellow)">Explore</span><a onclick="go('whatwedo')">What We Do</a><a onclick="go('work')">Work</a><a onclick="go('sectors')">Sectors</a><a onclick="go('latest')">The Latest</a></div>
+    <div><span class="eyebrow" style="color:var(--soft-yellow)">Agency</span><a onclick="go('about')">About</a><a onclick="go('careers')">Careers</a><a onclick="go('bcorp')">B Corp</a></div>
+    <div><span class="eyebrow" style="color:var(--soft-yellow)">Talk to us</span><a onclick="go('contact')">Contact</a><span class="muted" style="font-size:13px">01254 878 956<br>hello@workhouse.agency</span></div>
+  </div>
+  <p class="muted" style="max-width:1120px;margin:30px auto 0;font-size:12px;font-family:var(--font-mono)">Low-fidelity wireframe · placeholder copy where marked [ … ] · fonts are stand-ins for Denton Bold & Gotham Book</p>
+</footer>
+
+<script src="posts.js"></script>
+<script>
+  // ---- Blog rendering (data-driven from posts.js) ----
+  var pillarColour={ 'Perspective':'var(--soft-blue)','News':'var(--muted-orange)','5 in 5':'var(--soft-purple)','How-To':'var(--soft-yellow)' };
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function inline(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g,'<em>$1</em>');}
+  var currentFilter='All';
+
+  function renderLatest(){
+    if(!window.POSTS) return;
+    var pillars=['All','Perspective','5 in 5','News','How-To'];
+    document.getElementById('latestFilters').innerHTML='<span class="tag">Pillar</span>'+
+      pillars.map(function(p){return '<span class="chip" style="'+(p===currentFilter?'background:var(--primary);color:var(--neutral);':'')+'" onclick="setFilter(\''+p+'\')">'+p+'</span>';}).join('');
+    var list=POSTS.filter(function(p){return currentFilter==='All'||p.pillar===currentFilter;});
+    var feat=list[0];
+    var fh=document.getElementById('latestFeatured');
+    if(feat){
+      fh.innerHTML='<div class="card" style="padding:0;overflow:hidden;margin:16px 0 24px;display:grid;grid-template-columns:1fr 1fr" onclick="openPost('+feat.n+')">'
+        +'<div class="ph" style="border:none;border-radius:0;min-height:280px">[ Featured image — '+esc(feat.title)+' ]</div>'
+        +'<div style="padding:28px"><span class="tag" style="background:'+pillarColour[feat.pillar]+'">'+feat.pillar+'</span>'
+        +'<h2 style="margin-top:10px">'+esc(feat.title)+'</h2>'
+        +'<p class="muted">'+esc(excerpt(feat))+'</p>'
+        +'<a style="color:var(--muted-orange)">Read ›</a></div></div>';
+    } else fh.innerHTML='';
+    document.getElementById('latestGrid').innerHTML=list.slice(1).map(function(p){
+      return '<div class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="openPost('+p.n+')">'
+        +'<div class="ph" style="border:none;border-radius:0;min-height:150px">[ Image ]</div>'
+        +'<div style="padding:20px"><span class="tag" style="background:'+pillarColour[p.pillar]+'">'+p.pillar+'</span>'
+        +'<h3 style="margin-top:8px">'+esc(p.title)+'</h3>'
+        +'<p class="muted" style="font-size:13px">'+esc(excerpt(p,110))+'</p>'
+        +'<a style="color:var(--muted-orange);font-size:14px">Read ›</a></div></div>';
+    }).join('');
+  }
+  function excerpt(p,n){ n=n||150; var t=p.subtitle||(p.paras[0]||'').replace(/\*\*/g,''); return t.length>n?t.slice(0,n).trim()+'…':t; }
+  function setFilter(f){ currentFilter=f; renderLatest(); }
+
+  function openPost(n){
+    var p=POSTS.find(function(x){return x.n===n;}); if(!p) return;
+    document.getElementById('artCrumb').textContent=p.title;
+    var html='<span class="eyebrow">'+p.pillar+' · '+esc(p.type)+'</span><h1>'+esc(p.title)+'</h1>';
+    if(p.subtitle) html+='<p class="lead">'+esc(p.subtitle)+'</p>';
+    html+='<div class="ph" style="min-height:320px;margin:22px 0">[ Article hero image — '+esc(p.title)+' ]</div>';
+    html+='<div style="max-width:720px">';
+    p.paras.forEach(function(para,i){
+      if(/^[-•]/.test(para.trim())){
+        var items=para.split(/\n/).filter(function(l){return /^\s*[-•]/.test(l);});
+        html+='<ul class="tight">'+items.map(function(l){return '<li>'+inline(l.replace(/^\s*[-•]\s*/,''))+'</li>';}).join('')+'</ul>';
+      } else {
+        html+='<p'+(i===0?' class="lead"':' class="muted"')+'>'+inline(para)+'</p>';
+      }
+      if(i===1) html+='</div><div class="ph" style="min-height:260px;margin:8px 0 22px">[ Inline image ]</div><div style="max-width:720px">';
+    });
+    html+='</div>';
+    // related: same pillar, other posts
+    var rel=POSTS.filter(function(x){return x.pillar===p.pillar&&x.n!==p.n;}).slice(0,3);
+    if(rel.length){
+      html+='<hr class="soft"><span class="eyebrow">Related content</span><div class="grid c3">'+rel.map(function(r){
+        return '<div class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="openPost('+r.n+')"><div class="ph" style="border:none;border-radius:0;min-height:120px">[ Image ]</div><div style="padding:16px"><span class="tag" style="background:'+pillarColour[r.pillar]+'">'+r.pillar+'</span><h3 style="margin-top:6px;font-size:16px">'+esc(r.title)+'</h3></div></div>';
+      }).join('')+'</div>';
+    }
+    html+='<div class="band" style="text-align:center;margin-top:30px"><h2>Got a challenge?</h2><a class="btn light primary" onclick="go(\'contact\')">Get in touch</a></div>';
+    document.getElementById('articleBody').innerHTML=html;
+    go('article');
+  }
+
+  function go(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    var el=document.getElementById(id); if(el) el.classList.add('active');
+    if(id==='latest') renderLatest();
+    document.querySelectorAll('#nav a').forEach(a=>a.classList.remove('active'));
+    var m={strategy:'whatwedo',creative:'whatwedo',digital:'whatwedo',case:'work',article:'latest',careers:'about',bcorp:'about','sector-property':'sectors','sector-construction':'sectors','sector-architecture':'sectors'};
+    var link=document.querySelector('#nav a[data-s="'+(m[id]||id)+'"]');
+    if(link) link.classList.add('active');
+    window.scrollTo(0,0); history.replaceState(null,'','#'+id);
+  }
+  var s=location.hash.replace('#','');
+  if(s&&document.getElementById(s)) go(s); else go('home');
+</script>
+</body>
+</html>

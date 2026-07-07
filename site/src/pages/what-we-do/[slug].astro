@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((s) => ({ params: { slug: s.id }, props: { service: s } }));
+}
+const { service } = Astro.props;
+const { Content } = await render(service);
+const cta = { strategy:['Start with the truth','Book a discovery call'], creative:['Colour outside the lines','Start a project'], digital:['Move minds and metrics','Get a quote'] };
+---
+<Base title={`${service.data.eyebrow} — Workhouse`}>
+  <div class="crumb"><a href="/">Home</a> / <a href="/what-we-do">What We Do</a> / {service.data.eyebrow}</div>
+  <span class="eyebrow">{service.data.eyebrow}</span>
+  <h1>{service.data.title}</h1>
+  <p class="lead">{service.data.lead}</p>
+  <Placeholder label="Supporting visual" minHeight="240px" />
+
+  <div class="article-body" style="margin-top:26px"><Content /></div>
+
+  <span class="eyebrow" style="margin-top:30px">What's involved</span>
+  <div class="grid c4">
+    {service.data.items.map((it)=><div class="card"><h3>{it}</h3></div>)}
+  </div>
+
+  <hr class="soft" />
+  <Placeholder label="Related case study for this discipline" />
+  <div class="band" style="text-align:center;margin-top:26px">
+    <h2>{cta[service.id][0]}</h2>
+    <a class="btn light primary" href="/contact">{cta[service.id][1]}</a>
+  </div>
+</Base>

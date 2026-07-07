@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const services = (await getCollection('services')).sort((a,b)=>a.data.order-b.data.order);
+const blurb = { strategy:"We start with the truth to uncover what really matters. No hunches, no hearsay. Rock-solid thinking built on proof.", creative:"We turn sound strategy into ideas that provoke action. Distinctive, bold and human.", digital:"Every post with a point. Measured risks, meaningful returns. Data-led and crafted with care." };
+---
+<Base title="What We Do — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / What We Do</div>
+  <span class="eyebrow">What we do &amp; how we do it</span>
+  <h1>Technical worlds, remarkable stories</h1>
+  <p class="lead">Three disciplines working together, built around one way of thinking. They point to our one non-negotiable aim: to create work that gets results.</p>
+
+  <div class="grid c3" style="margin-top:34px">
+    {services.map((s)=>(
+      <div class="card">
+        <h2 style="font-size:26px">{s.data.eyebrow}</h2>
+        <p class="muted">{blurb[s.id]}</p>
+        <ul class="svc">{s.data.items.map((it)=><li>{it}</li>)}</ul>
+        <a class="btn" style="margin-top:16px" href={`/what-we-do/${s.id}`}>More ›</a>
+      </div>
+    ))}
+  </div>
+</Base>

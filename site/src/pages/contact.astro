@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+---
+<Base title="Contact — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / Contact</div>
+  <span class="eyebrow">Contact</span>
+  <h1>Got a challenge?</h1>
+  <p class="lead">Tell us a bit about it. We'll come back to you within one working day.</p>
+
+  <div class="grid c2" style="margin-top:28px">
+    <form class="card" onsubmit="event.preventDefault(); this.querySelector('.confirm').style.display='block';">
+      <h3>Start a project</h3>
+      <div class="field"><label>Business name</label><input class="inp" type="text" /></div>
+      <div class="field"><label>Business email</label><input class="inp" type="email" /></div>
+      <div class="field"><label>What do you need? (Strategy / Creative / Digital)</label><input class="inp" type="text" /></div>
+      <div class="field"><label>Your challenge</label><textarea class="inp area"></textarea></div>
+      <button class="btn primary" type="submit">Send enquiry</button>
+      <div class="note confirm" style="display:none;margin:16px 0 0">Thanks — we'll be in touch within 1 working day. (Wireframe: form needs a backend endpoint before launch.)</div>
+    </form>
+    <div>
+      <div class="card" style="margin-bottom:20px"><span class="eyebrow">New business</span><h3>Nicky Jepson</h3><p class="muted">Marketing Director<br />01254 878 956<br />hello@workhouse.agency</p></div>
+      <div class="card" style="margin-bottom:20px"><span class="eyebrow">Careers</span><p class="muted"><a class="post-link" href="/careers">View our job vacancies ›</a><br />01254 878 956 · hello@workhouse.agency</p></div>
+      <div class="card"><span class="eyebrow">Everything else</span><p class="muted">01254 878 956 · hello@workhouse.agency<br />Blackburn Rd, Little Town, Blackburn</p><Placeholder label="Map" minHeight="150px" /></div>
+    </div>
+  </div>
+</Base>

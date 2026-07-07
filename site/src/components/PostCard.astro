@@ -1,0 +1,28 @@
+---
+import Placeholder from './Placeholder.astro';
+const { post, featured = false } = Astro.props;
+const { title, pillar, excerpt } = post.data;
+const url = `/latest/${post.id}`;
+const pc = { 'Perspective':'var(--soft-blue)','News':'var(--muted-orange)','5 in 5':'var(--soft-purple)','How-To':'var(--soft-yellow)' };
+---
+{featured ? (
+  <a href={url} class="card" data-pillar={pillar} style="padding:0;overflow:hidden;margin:16px 0 24px;display:grid;grid-template-columns:1fr 1fr">
+    <Placeholder label={`Featured image — ${title}`} minHeight="280px" flush={true} />
+    <div style="padding:28px">
+      <span class="tag" style={`background:${pc[pillar]}`}>{pillar}</span>
+      <h2 style="margin-top:10px">{title}</h2>
+      <p class="muted">{excerpt}</p>
+      <span class="post-link">Read ›</span>
+    </div>
+  </a>
+) : (
+  <a href={url} class="card" data-pillar={pillar} style="padding:0;overflow:hidden">
+    <Placeholder minHeight="150px" flush={true} />
+    <div style="padding:20px">
+      <span class="tag" style={`background:${pc[pillar]}`}>{pillar}</span>
+      <h3 style="margin-top:8px">{title}</h3>
+      <p class="muted" style="font-size:13px">{excerpt}</p>
+      <span class="post-link" style="font-size:14px">Read ›</span>
+    </div>
+  </a>
+)}

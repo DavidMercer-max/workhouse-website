@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+const blocks = [
+  { h:'What is B Corp?', p:'A short, plain explainer of the certification and what it demands. Workhouse has been certified since 2023.' },
+  { h:'Our score & key highlights', p:'Headline score plus the impact areas we perform strongest in — carbon neutral for three years and counting.' },
+  { h:'Why it matters', p:'What being a B Corp means for clients, our people and the planet.' },
+];
+---
+<Base title="B Corp — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / <a href="/about">About</a> / B Corp</div>
+  <span class="eyebrow">Certified B Corporation</span>
+  <h1>Business as a force for good</h1>
+  <div class="grid c3" style="margin-top:30px">
+    {blocks.map((b)=><div class="card"><h3>{b.h}</h3><p class="muted">{b.p}</p></div>)}
+  </div>
+</Base>

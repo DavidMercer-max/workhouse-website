@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+const think = [
+  { h:'Truth first', p:'No hunches, no hearsay. Proof.' },
+  { h:'Provoke a response', p:'Work that makes people act.' },
+  { h:'Own the challenge', p:"Your problem is ours." },
+];
+---
+<Base title="About — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / About</div>
+  <span class="eyebrow">Who we are</span>
+  <h1>For the brave ones</h1>
+  <p class="lead">We're the creative agency shaking up the Built Environment with bold ideas that provoke action, prove results and build brands worth remembering.</p>
+
+  <div class="band" style="margin:34px 0">
+    <span class="eyebrow">Who we're for</span>
+    <h2>Finished with blending in?</h2>
+    <p class="lead muted">We work with marketing leaders who see the sameness in their sector and want out. They believe bold creativity makes a difference — they're right. We're for the challengers with something to prove. The provocateurs pressured for proof. The ones who want their brand to mean something.</p>
+  </div>
+
+  <span class="eyebrow">How we think</span>
+  <div class="grid c3">{think.map((t)=><div class="card"><h3>{t.h}</h3><p class="muted">{t.p}</p></div>)}</div>
+
+  <h2 style="margin-top:44px">Our people</h2>
+  <div class="grid c4">
+    {[0,1,2,3].map(()=>(
+      <div class="card"><Placeholder label="Photo" minHeight="160px" /><h3 style="margin-top:10px">Name</h3><p class="muted">Role</p></div>
+    ))}
+  </div>
+
+  <hr class="soft" />
+  <div class="grid c2">
+    <div class="card"><span class="eyebrow">The agency</span><h3>Agency life</h3><p class="muted">A peek behind the curtain — culture, values and the way we work. Deep roots in Lancashire's Ribble Valley, with a growing base in central Manchester.</p></div>
+    <div class="card"><span class="eyebrow">Certified</span><h3>We're a B Corp</h3><p class="muted">Business as a force for good, certified since 2023. <a class="post-link" href="/b-corp">Our score &amp; why it matters ›</a></p></div>
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Join the team</h2><a class="btn light primary" href="/careers">View job vacancies</a></div>
+</Base>

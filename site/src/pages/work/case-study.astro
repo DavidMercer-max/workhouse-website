@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+const results = [
+  { stat:'+X%', label:'Uplift in [metric]' },
+  { stat:'+X%', label:'Uplift in open rates' },
+  { stat:'–X%', label:'Cost per acquisition' },
+  { stat:'+Xk', label:'Email profiles' },
+];
+---
+<Base title="Case study — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / <a href="/work">Work</a> / Case study</div>
+  <span class="eyebrow">Case study · Sector</span>
+  <h1>To boldly go where no underlay brand has gone before</h1>
+  <Placeholder label="Hero image" minHeight="320px" />
+
+  <div class="grid c2" style="margin-top:22px">
+    <div>
+      <h2>The challenge</h2>
+      <p class="lead muted">One paragraph on the business problem the client came to us with.</p>
+      <h2 style="margin-top:26px">What we did</h2>
+      <p class="lead muted">The strategy, creative and digital work delivered, in plain language.</p>
+    </div>
+    <div class="card" style="align-self:start">
+      <span class="eyebrow">Client block</span>
+      <p><strong>[ Client name ]</strong><br /><span class="muted">Sector</span></p>
+      <span class="eyebrow" style="margin-top:14px">Services used</span>
+      <p class="muted" style="font-size:13px">Data Interrogation · Development · Digital Strategy · UX · UI · User Testing · eCRM</p>
+    </div>
+  </div>
+
+  <hr class="soft" />
+  <span class="eyebrow">The results</span>
+  <div class="grid c4">
+    {results.map((r)=><div class="card"><h2 style="font-size:34px">{r.stat}</h2><p class="muted">{r.label}</p></div>)}
+  </div>
+
+  <div class="grid c2" style="margin-top:24px"><Placeholder label="Image" /><Placeholder label="Image" /></div>
+  <div class="card" style="margin-top:24px"><h2 style="font-size:26px">“A pull quote from the client goes here.”</h2><p class="muted">— Name, Job title, Company</p></div>
+
+  <hr class="soft" />
+  <span class="eyebrow">Related work</span>
+  <div class="grid c3"><Placeholder label="Case" /><Placeholder label="Case" /><Placeholder label="Case" /></div>
+</Base>

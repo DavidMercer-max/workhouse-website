@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+---
+<Base title="Careers — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / <a href="/about">About</a> / Careers</div>
+  <span class="eyebrow">Careers</span>
+  <h1>Join the team</h1>
+  <p class="lead">We're always after brave, curious people who want their work to mean something.</p>
+  <Placeholder label="Team / culture imagery" minHeight="220px" />
+
+  <h2 style="margin-top:24px">Available roles</h2>
+  <div class="card" style="display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px">
+    <div><h3>Campaign Manager</h3><span class="tag">Full time</span> <span class="tag">Blackburn</span></div>
+    <span class="muted">Marketing</span>
+    <a class="btn primary" href="/contact">Learn more</a>
+  </div>
+  <p class="muted" style="margin-top:16px">No suitable role? <a class="post-link" href="/contact">Get in touch anyway ›</a></p>
+</Base>

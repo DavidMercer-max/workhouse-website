@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a,b)=>b.data.order-a.data.order);
+const pillars = ['All','Perspective','5 in 5','News','How-To'];
+const [featured, ...rest] = posts;
+---
+<Base title="The Latest — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / The Latest</div>
+  <span class="eyebrow">The latest</span>
+  <h1>Perspectives, worth your time</h1>
+  <p class="lead">Thought leadership, interviews, news and how-to guides from the Workhouse team.</p>
+
+  <div id="filters" style="margin:22px 0 6px">
+    <span class="tag">Pillar</span>
+    {pillars.map((p)=><button class={`chip filter${p==='All'?' active':''}`} data-filter={p}>{p}</button>)}
+  </div>
+
+  <div id="featured"><PostCard post={featured} featured={true} /></div>
+  <div id="grid" class="grid c3">
+    {rest.map((p)=><PostCard post={p} />)}
+  </div>
+
+  <hr class="soft" />
+  <div class="card" style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px">
+    <div><span class="eyebrow">Gated content</span><h3>Perspectives Vol. 1 &amp; 2</h3><p class="muted">Download our thinking — email required.</p></div>
+    <a class="btn primary" href="/contact">Download</a>
+  </div>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll('.filter');
+  const featured = document.getElementById('featured');
+  const featPillar = featured?.querySelector('[data-pillar]')?.getAttribute('data-pillar');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    const f = b.getAttribute('data-filter');
+    buttons.forEach((x) => x.classList.toggle('active', x === b));
+    document.querySelectorAll('#grid [data-pillar]').forEach((card) => {
+      card.style.display = (f === 'All' || card.getAttribute('data-pillar') === f) ? '' : 'none';
+    });
+    if (featured) featured.style.display = (f === 'All' || featPillar === f) ? '' : 'none';
+  }));
+</script>

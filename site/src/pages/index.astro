@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+const services = (await getCollection('services')).sort((a,b)=>a.data.order-b.data.order);
+const posts = (await getCollection('blog')).sort((a,b)=>b.data.order-a.data.order);
+const sub = { strategy:'Rock-solid thinking built on proof — the truths your audience actually care about.', creative:'Distinctive, bold and human. Ideas that make people stop, think, click, share and buy.', digital:'Every click, every pixel with a point. Data-led, hell-bent on moving minds and metrics.' };
+---
+<Base>
+  <span class="eyebrow">Creative agency · Built Environment specialists</span>
+  <h1>Ideas that ignite</h1>
+  <p class="lead">We craft strategies that cut through, brands that stick, and digital experiences that deliver. With curiosity at our core, we blend clarity and craft with confidence to turn ideas into measurable impact.</p>
+  <div style="margin:20px 0 8px">
+    <a class="btn primary" href="/work">See our work</a>
+    <a class="btn" href="/contact">Got a challenge?</a>
+  </div>
+  <Placeholder label="Hero showreel / signature imagery" minHeight="300px" />
+
+  <span class="eyebrow" style="margin-top:44px">What you get</span>
+  <div class="grid c4" style="margin-bottom:44px">
+    <div class="card"><h3>Killer strategies that cut through</h3></div>
+    <div class="card"><h3>Brands that stick</h3></div>
+    <div class="card"><h3>Creative impossible to ignore</h3></div>
+    <div class="card"><h3>Digital that delivers</h3></div>
+  </div>
+
+  <span class="eyebrow">What we do</span>
+  <h2>Strategy. Creative. Digital.</h2>
+  <p class="lead muted">Three disciplines. One obsession: work that provokes a response. We own our clients' challenges like they're ours — because they are.</p>
+  <div class="grid c3" style="margin:22px 0">
+    {services.map((s,i)=>(
+      <div class="card">
+        <span class="tag">0{i+1}</span>
+        <h3>{s.data.eyebrow}</h3>
+        <p class="muted">{sub[s.id]}</p>
+        <a class="post-link" href={`/what-we-do/${s.id}`}>Explore {s.data.eyebrow} ›</a>
+      </div>
+    ))}
+  </div>
+
+  <span class="eyebrow">Latest thinking</span>
+  <div class="grid c3" style="margin:14px 0 44px">
+    {posts.slice(0,3).map((p)=>(
+      <a class="card" href={`/latest/${p.id}`} style="padding:0;overflow:hidden">
+        <Placeholder minHeight="150px" flush={true} />
+        <div style="padding:20px"><span class="tag">{p.data.pillar}</span><h3 style="margin-top:8px">{p.data.title}</h3><span class="post-link">Read ›</span></div>
+      </a>
+    ))}
+  </div>
+
+  <Placeholder label="Client logo strip — 6–8 built-environment brands" />
+
+  <hr class="soft" />
+  <div class="band" style="text-align:center">
+    <span class="eyebrow">For the brave ones</span>
+    <h2>Got a challenge?</h2>
+    <p class="muted" style="max-width:560px;margin:0 auto 18px">Tell us where you're headed and we'll tell you how we'd get you there.</p>
+    <a class="btn light primary" href="/contact">Get in touch</a>
+  </div>
+</Base>

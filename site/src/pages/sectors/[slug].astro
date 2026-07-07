@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const sectors = await getCollection('sectors');
+  return sectors.map((s) => ({ params: { slug: s.id }, props: { sector: s } }));
+}
+const { sector } = Astro.props;
+const d = sector.data;
+---
+<Base title={`${d.eyebrow} — Workhouse`}>
+  <div class="crumb"><a href="/">Home</a> / <a href="/sectors">Sectors</a> / {d.eyebrow.replace('Sector · ','')}</div>
+  <span class="eyebrow">{d.eyebrow}</span>
+  <h1>{d.title}</h1>
+  <p class="lead">{d.lead}</p>
+  <Placeholder label="Sector hero image" minHeight="280px" />
+
+  <div class="band" style="margin:34px 0">
+    <span class="eyebrow">The challenge</span>
+    <h2>{d.challengeTitle}</h2>
+    <p class="lead muted">{d.challenge}</p>
+  </div>
+
+  <span class="eyebrow">How we help</span>
+  <div class="grid c3">
+    {d.help.map((h)=><div class="card"><h3>{h.discipline}</h3><p class="muted">{h.text}</p></div>)}
+  </div>
+
+  <hr class="soft" />
+  <span class="eyebrow">Work in this sector</span>
+  <div class="grid c3">
+    {[0,1,2].map(()=>(
+      <a class="card" href="/work/case-study" style="padding:0;overflow:hidden">
+        <Placeholder label="Case" flush={true} />
+        <div style="padding:18px"><span class="tag">{d.tag}</span><h3 style="margin-top:8px">[ Case study title ]</h3><span class="post-link">View ›</span></div>
+      </a>
+    ))}
+  </div>
+  <div class="band" style="text-align:center;margin-top:26px"><h2>Got a challenge in {d.tag.toLowerCase()}?</h2><a class="btn light primary" href="/contact">Got a challenge?</a></div>
+</Base>

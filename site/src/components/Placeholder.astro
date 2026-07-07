@@ -1,0 +1,6 @@
+---
+// Image placeholder for the wireframe stage. Swap for <Image> from astro:assets when real assets land.
+const { label = 'Image', minHeight = '150px', flush = false } = Astro.props;
+const style = `min-height:${minHeight};` + (flush ? 'border:none;border-radius:0;' : '');
+---
+<div class="ph" style={style}>[ {label} ]</div>

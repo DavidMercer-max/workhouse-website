@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+const sectors = (await getCollection('sectors')).sort((a,b)=>a.data.order-b.data.order);
+const blurb = {
+  'property-and-developers':'Developers, investors, housebuilders and BTR operators who need schemes and brands that stand out.',
+  'construction-and-contractors':'Contractors and construction firms who win on reputation, talent and trust.',
+  'architecture-products-and-consultancy':'Architects, manufacturers and consultants whose expertise deserves to be seen.',
+};
+const short = { 'property-and-developers':'Property & Developers', 'construction-and-contractors':'Construction & Contractors', 'architecture-products-and-consultancy':'Architecture, Products & Consultancy' };
+---
+<Base title="Sectors — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / Sectors</div>
+  <span class="eyebrow">Sectors</span>
+  <h1>We know your world</h1>
+  <p class="lead">30 years deep in the built environment. We speak your language, know your buyers and understand what actually moves a specifier, an investor or a planner. Pick your patch.</p>
+
+  <div class="grid c3" style="margin-top:34px">
+    {sectors.map((s)=>(
+      <a class="card" href={`/sectors/${s.id}`} style="padding:0;overflow:hidden">
+        <Placeholder label="Sector image" flush={true} />
+        <div style="padding:22px">
+          <h2 style="font-size:24px">{short[s.id]}</h2>
+          <p class="muted">{blurb[s.id]}</p>
+          <span class="post-link">Explore ›</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <hr class="soft" />
+  <div class="band" style="text-align:center">
+    <span class="eyebrow">Not on the list?</span>
+    <h2>If you build, shape or sell the built environment, we should talk.</h2>
+    <a class="btn light primary" href="/contact">Get in touch</a>
+  </div>
+</Base>

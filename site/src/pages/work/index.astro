@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+const disciplines = ['All','Strategy','Creative','Digital'];
+const sectors = [
+  { slug:'property-and-developers', label:'Property & Developers' },
+  { slug:'construction-and-contractors', label:'Construction & Contractors' },
+  { slug:'architecture-products-and-consultancy', label:'Architecture, Products & Consultancy' },
+];
+const cases = [
+  { title:'To boldly go where no underlay brand has gone before', tags:['Property','Creative'] },
+  { title:'[ Case study title ]', tags:['Property','Digital'] },
+  { title:'[ Case study title ]', tags:['Property','Strategy'] },
+];
+---
+<Base title="Work — Workhouse">
+  <div class="crumb"><a href="/">Home</a> / Work</div>
+  <span class="eyebrow">Our work</span>
+  <h1>Proof, not promises</h1>
+  <p class="lead">Bold work with measurable results for the built environment.</p>
+
+  <div style="margin:22px 0 6px"><span class="tag">Discipline</span>{disciplines.map((d)=><span class="chip">{d}</span>)}</div>
+  <div style="margin:0 0 10px"><span class="tag">Sector</span>{sectors.map((s)=><a class="chip" href={`/sectors/${s.slug}`}>{s.label}</a>)}</div>
+
+  <h2 style="margin-top:24px;font-size:24px">Case studies</h2>
+  <div class="grid c3">
+    {cases.map((c)=>(
+      <a class="card" href="/work/case-study" style="padding:0;overflow:hidden">
+        <Placeholder label="Thumb" flush={true} />
+        <div style="padding:20px">{c.tags.map((t)=><span class="tag">{t}</span>)}<h3 style="margin-top:8px">{c.title}</h3><span class="post-link">View ›</span></div>
+      </a>
+    ))}
+  </div>
+
+  <h2 style="margin-top:40px;font-size:24px">Shots <span class="muted" style="font-family:var(--font-body);font-weight:400;font-size:14px">— slim / in-progress work</span></h2>
+  <div class="grid c4">{[0,1,2,3].map(()=><Placeholder label="Shot" />)}</div>
+</Base>

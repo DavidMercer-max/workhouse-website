@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p, all: posts } }));
+}
+const { post, all } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+const related = all.filter((p) => p.data.pillar === d.pillar && p.id !== post.id).slice(0, 3);
+---
+<Base title={`${d.title} — Workhouse`} description={d.excerpt}>
+  <div class="crumb"><a href="/">Home</a> / <a href="/latest">The Latest</a> / {d.title}</div>
+  <span class="eyebrow">{d.type && d.type !== d.pillar ? `${d.pillar} · ${d.type}` : d.pillar} · {d.author}</span>
+  <h1>{d.title}</h1>
+  {d.subtitle && <p class="lead">{d.subtitle}</p>}
+  <Placeholder label={`Article hero image — ${d.title}`} minHeight="320px" />
+
+  <div class="article-body" style="margin-top:22px"><Content /></div>
+  <Placeholder label="Inline image" minHeight="240px" />
+
+  {related.length > 0 && (
+    <>
+      <hr class="soft" />
+      <span class="eyebrow">Related content</span>
+      <div class="grid c3">
+        {related.map((r) => (
+          <a class="card" href={`/latest/${r.id}`} style="padding:0;overflow:hidden">
+            <Placeholder label="Image" minHeight="120px" flush={true} />
+            <div style="padding:16px"><span class="tag">{r.data.pillar}</span><h3 style="margin-top:6px;font-size:16px">{r.data.title}</h3></div>
+          </a>
+        ))}
+      </div>
+    </>
+  )}
+
+  <div class="band" style="text-align:center;margin-top:30px"><h2>Got a challenge?</h2><a class="btn light primary" href="/contact">Get in touch</a></div>
+</Base>
