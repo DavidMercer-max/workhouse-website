@@ -3,11 +3,10 @@ import '../styles/global.css';
 const { title = 'Workhouse — Creative agency for the Built Environment', description = 'Action-provoking creative for the built environment.' } = Astro.props;
 const path = Astro.url.pathname;
 const nav = [
-  { href: '/what-we-do', label: 'What We Do' },
+  { href: '/about', label: 'Approach' },
   { href: '/work', label: 'Work' },
-  { href: '/sectors', label: 'Sectors' },
-  { href: '/latest', label: 'Latest' },
-  { href: '/about', label: 'About' },
+  { href: '/latest', label: 'Perspectives' },
+  { href: '/agency-life', label: 'Agency life' },
   { href: '/contact', label: 'Contact' },
 ];
 const isActive = (href) => path === href || path.startsWith(href + '/');
@@ -33,16 +32,34 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
   </main>
 
   <footer class="site">
-    <div class="fcols">
-      <div>
-        <div class="logo" style="color:var(--neutral)">Workhouse</div>
-        <p class="muted" style="max-width:280px;margin-top:10px">Action-provoking creative for the built environment.</p>
+    <div class="footer-inner">
+      <h2>Bringing perspective to brand, design &amp; build</h2>
+      <div class="footer-grid">
+        <nav>
+          <a href="/about">Approach</a>
+          <a href="/work">Work</a>
+          <a href="/latest">Perspectives</a>
+          <a href="/agency-life">Agency life</a>
+          <a href="/careers">Jobs</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <div class="newsletter">
+          <p class="muted" style="max-width:420px">Sign up to our E-news for our fresh thinking and unique perspectives.</p>
+          <label class="eyebrow" style="color:#8a8069">Email</label>
+          <input class="inp" type="email" placeholder="you@company.com" />
+          <p class="muted" style="font-size:12px;margin-top:8px">By entering your email address you agree to the <a href="#" style="display:inline">T&amp;Cs</a>.</p>
+          <span class="eyebrow" style="color:#8a8069;margin-top:14px">Social</span>
+          <div class="social"><span>Fb</span><span>Ig</span><span>In</span></div>
+        </div>
       </div>
-      <div><span class="eyebrow" style="color:var(--soft-yellow)">Explore</span><a href="/what-we-do">What We Do</a><a href="/work">Work</a><a href="/sectors">Sectors</a><a href="/latest">The Latest</a></div>
-      <div><span class="eyebrow" style="color:var(--soft-yellow)">Agency</span><a href="/about">About</a><a href="/careers">Careers</a><a href="/b-corp">B Corp</a></div>
-      <div><span class="eyebrow" style="color:var(--soft-yellow)">Talk to us</span><a href="/contact">Contact</a><span class="muted" style="font-size:13px">01254 878 956<br>hello@workhouse.agency</span></div>
     </div>
-    <p class="muted" style="max-width:var(--wrap);margin:30px auto 0;font-size:12px;font-family:var(--font-mono)">Low-fidelity wireframe · placeholder imagery · fonts are stand-ins for Denton Bold &amp; Gotham Book</p>
+    <div class="footer-legal">
+      <span>© 2026 Workhouse Marketing. All rights reserved.</span>
+      <a href="#">Terms &amp; Conditions</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Lobbying Policy</a>
+      <span style="font-family:var(--font-mono)">· Lo-fi wireframe · placeholder imagery</span>
+    </div>
   </footer>
 </body>
 </html>

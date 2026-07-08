@@ -2,59 +2,99 @@
 import Base from '../layouts/Base.astro';
 import Placeholder from '../components/Placeholder.astro';
 import { getCollection } from 'astro:content';
-const services = (await getCollection('services')).sort((a,b)=>a.data.order-b.data.order);
-const posts = (await getCollection('blog')).sort((a,b)=>b.data.order-a.data.order);
-const sub = { strategy:'Rock-solid thinking built on proof — the truths your audience actually care about.', creative:'Distinctive, bold and human. Ideas that make people stop, think, click, share and buy.', digital:'Every click, every pixel with a point. Data-led, hell-bent on moving minds and metrics.' };
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.order - a.data.order);
+
+const clients = ['Mix Interiors', 'Stax', 'Sanipex Group', 'anywhere', 'Maldon', 'Peldon Rose', 'Yeo Valley', 'Crown Professional', 'Ian Mankin', 'Perx', 'Hempel', 'Singletons'];
+const wins = ['Killer strategies that cut through', 'Ideas that ignite', 'Brands that stick', 'Creative assets impossible to ignore', 'Digital that delivers'];
+const featured = [
+  { cat: 'Branding', title: '[ Project title ]', catch: 'Case study / shot catch-line', client: 'Client' },
+  { cat: 'Digital', title: '[ Project title ]', catch: 'Case study / shot catch-line', client: 'Client' },
+  { cat: 'Branding', title: 'Making a new digital home for Mix.', catch: 'Case study catch-line', client: 'Mix Interiors' },
+  { cat: 'Creative', title: 'A trade undercoat gets a makeover', catch: 'Case study catch-line', client: 'Crown Trade' },
+  { cat: 'Strategy', title: '[ Project title ]', catch: 'Case study / shot catch-line', client: 'Client' },
+];
 ---
 <Base>
-  <span class="eyebrow">Creative agency · Built Environment specialists</span>
-  <h1>Ideas that ignite</h1>
-  <p class="lead">We craft strategies that cut through, brands that stick, and digital experiences that deliver. With curiosity at our core, we blend clarity and craft with confidence to turn ideas into measurable impact.</p>
-  <div style="margin:20px 0 8px">
-    <a class="btn primary" href="/work">See our work</a>
-    <a class="btn" href="/contact">Got a challenge?</a>
-  </div>
-  <Placeholder label="Hero showreel / signature imagery" minHeight="300px" />
+  <div class="note">SCREEN · Homepage reworked to the live layout — full-bleed hero → positioning + client logos → capability band → featured work → services → latest → newsletter footer. Lo-fi: all imagery is placeholder.</div>
 
-  <span class="eyebrow" style="margin-top:44px">What you get</span>
-  <div class="grid c4" style="margin-bottom:44px">
-    <div class="card"><h3>Killer strategies that cut through</h3></div>
-    <div class="card"><h3>Brands that stick</h3></div>
-    <div class="card"><h3>Creative impossible to ignore</h3></div>
-    <div class="card"><h3>Digital that delivers</h3></div>
-  </div>
+  <!-- Full-bleed hero -->
+  <div class="fullbleed"><Placeholder label="Hero image — full-bleed campaign visual" minHeight="clamp(300px,42vw,520px)" flush={true} /></div>
 
-  <span class="eyebrow">What we do</span>
-  <h2>Strategy. Creative. Digital.</h2>
-  <p class="lead muted">Three disciplines. One obsession: work that provokes a response. We own our clients' challenges like they're ours — because they are.</p>
-  <div class="grid c3" style="margin:22px 0">
-    {services.map((s,i)=>(
-      <div class="card">
-        <span class="tag">0{i+1}</span>
-        <h3>{s.data.eyebrow}</h3>
-        <p class="muted">{sub[s.id]}</p>
-        <a class="post-link" href={`/what-we-do/${s.id}`}>Explore {s.data.eyebrow} ›</a>
+  <!-- Positioning + client logos -->
+  <section style="margin-top:56px">
+    <h1 style="max-width:780px">We work with <em>marketing leaders</em> who don't want to blend in.</h1>
+    <p class="lead" style="margin-top:16px">They want to rise above the sea of sameness in their sector. They believe bold creative makes a difference. They're right. We're for the challengers with something to prove. The provocateurs pressured for proof. The ones who want their brand to mean something.</p>
+
+    <div class="logo-grid" style="margin-top:44px">
+      {clients.map((c) => <div class="logo-box">{c}</div>)}
+    </div>
+  </section>
+
+  <!-- Capability band -->
+  <section class="fullbleed" style="background:var(--soft-blue);margin-top:64px;padding:56px 0;">
+    <div class="container">
+      <div class="grid c2" style="align-items:start">
+        <p class="lead" style="color:var(--primary)">We turn complex worlds into remarkable stories that clients can get behind. We help brands find their greatness through action-provoking creative that makes people think, feel and act differently.</p>
+        <ul class="underline-list">{wins.map((w) => <li>{w}</li>)}</ul>
       </div>
-    ))}
-  </div>
+      <div style="text-align:center;margin-top:36px"><a class="btn primary" href="/what-we-do">What we do ↗</a></div>
+    </div>
+  </section>
 
-  <span class="eyebrow">Latest thinking</span>
-  <div class="grid c3" style="margin:14px 0 44px">
-    {posts.slice(0,3).map((p)=>(
-      <a class="card" href={`/latest/${p.id}`} style="padding:0;overflow:hidden">
-        <Placeholder minHeight="150px" flush={true} />
-        <div style="padding:20px"><span class="tag">{p.data.pillar}</span><h3 style="margin-top:8px">{p.data.title}</h3><span class="post-link">Read ›</span></div>
-      </a>
-    ))}
-  </div>
+  <!-- Featured work -->
+  <section style="margin-top:64px">
+    <h2>Featured work</h2>
+    <div class="hscroll" style="margin-top:18px">
+      {featured.map((f) => (
+        <a href="/work/case-study" class="card" style="padding:0;overflow:hidden">
+          <Placeholder label={f.cat} minHeight="200px" flush={true} />
+          <div style="padding:18px">
+            <span class="tag">{f.cat}</span>
+            <h3 style="margin-top:8px;font-size:18px">{f.title}</h3>
+            <p class="muted" style="font-size:13px;margin:4px 0 2px">{f.catch}</p>
+            <p class="muted" style="font-size:12px">{f.client}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+    <a class="btn" style="margin-top:16px" href="/work">See all work ↗</a>
+  </section>
 
-  <Placeholder label="Client logo strip — 6–8 built-environment brands" />
+  <!-- Services -->
+  <section style="margin-top:72px">
+    <div class="grid c2" style="align-items:center">
+      <div>
+        <h2>Services</h2>
+        <p class="muted" style="max-width:430px">Strategy, creative and digital — three disciplines, one obsession: work that provokes a response. We own our clients' challenges like they're ours.</p>
+        <div style="margin-top:20px">
+          {services.map((s) => (
+            <a class="svc-row" href={`/what-we-do/${s.id}`}>
+              <span class="name">{s.data.eyebrow}</span>
+              <span class="arr">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <Placeholder label="Feature image" minHeight="360px" />
+    </div>
+  </section>
 
-  <hr class="soft" />
-  <div class="band" style="text-align:center">
-    <span class="eyebrow">For the brave ones</span>
-    <h2>Got a challenge?</h2>
-    <p class="muted" style="max-width:560px;margin:0 auto 18px">Tell us where you're headed and we'll tell you how we'd get you there.</p>
-    <a class="btn light primary" href="/contact">Get in touch</a>
-  </div>
+  <!-- Latest -->
+  <section style="margin-top:72px">
+    <span class="eyebrow">Latest</span>
+    <h2>Fresh thinking</h2>
+    <div class="hscroll" style="margin-top:18px">
+      {posts.slice(0, 5).map((p) => (
+        <a href={`/latest/${p.id}`} class="card" style="padding:0;overflow:hidden">
+          <Placeholder minHeight="180px" flush={true} />
+          <div style="padding:16px">
+            <span class="tag">{p.data.pillar}</span>
+            <h3 style="margin-top:8px;font-size:16px">{p.data.title}</h3>
+          </div>
+        </a>
+      ))}
+    </div>
+    <a class="btn" style="margin-top:16px" href="/latest">All perspectives ↗</a>
+  </section>
 </Base>
